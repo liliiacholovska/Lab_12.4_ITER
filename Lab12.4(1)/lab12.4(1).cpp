@@ -1,4 +1,6 @@
 #include <iostream>
+#include <sstream>
+#include <string>
 
 using namespace std;
 
@@ -24,7 +26,10 @@ void insert(Elem*& L, Info value) {
 }
 
 void printList(Elem* L) {
-    if (L == NULL) return;
+    if (L == NULL) {
+        cout << "List is empty." << endl;
+        return;
+    }
     Elem* start = L;
     do {
         cout << L->info << " ";
@@ -44,25 +49,33 @@ void increaseListValues(Elem*& L, Info increaseBy) {
 
 int main() {
     Elem* L = NULL;
-    int N, increaseBy;
-    cout << "Enter the number of elements: ";
-    cin >> N;
-    cout << "Enter the values:" << endl;
-    for (int i = 0; i < N; i++) {
-        int a;
-        cin >> a;
-        insert(L, a);
+    int increaseBy;
+
+    cout << "Enter the values (enter a blank line to finish):" << endl;
+    string line;
+    int a;
+    while (getline(cin, line)) {
+        if (line.empty()) {
+            break; 
+        }
+        stringstream ss(line);
+        while (ss >> a) {
+            insert(L, a);
+        }
     }
 
     cout << "Original list: ";
     printList(L);
 
     cout << "Enter the increase value: ";
-    cin >> increaseBy;
-    increaseListValues(L, increaseBy);
-
-    cout << "Modified list: ";
-    printList(L);
+    if (cin >> increaseBy) {
+        increaseListValues(L, increaseBy);
+        cout << "Modified list: ";
+        printList(L);
+    }
+    else {
+        cout << "Invalid input for increase value." << endl;
+    }
 
     return 0;
 }
