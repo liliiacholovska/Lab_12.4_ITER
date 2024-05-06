@@ -51,7 +51,7 @@ int main() {
     Elem* L = NULL;
     int increaseBy;
 
-    cout << "Enter the values (enter a blank line to finish):" << endl;
+    cout << "Enter the values:" << endl;
     string line;
     int a;
     while (getline(cin, line)) {
